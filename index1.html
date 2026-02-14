@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    background:#f8c8d8;
+    overflow:hidden;
+    font-family:'Charm', cursive;
+
+}
+
+body, .scrapbook, .note,.title1, .bottom-text {
+    font-family:'Charm', cursive;
+}
+
+
+.book{
+    width:100vw;
+    height:100vh;
+    perspective:3000px;
+    position:relative;
+}
+
+/* PAGE */
+.page{
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    transform-origin:left;
+    transform-style:preserve-3d;
+    transition:1.5s ease;
+    cursor:pointer;
+    backface-visibility:hidden;   /* 🔥 สำคัญมาก */
+}
+
+/* เรียงลำดับหน้า */
+#page1{ z-index:3; }
+#page2{ z-index:2; }
+#page3{ z-index:1; }
+#page4{ z-index:0; }
+
+
+.page.open{
+    transform:rotateY(-180deg);
+    pointer-events:none;
+}
+
+/* หน้าแรก */
+.front img{
+    width:100vw;
+    height:100vh;
+    object-fit:contain;
+    background:#f8c8d8;
+}
+
+/* หน้า 2 & 3 */
+.page2,.page3,.page4{
+    background:#fffafc;
+    overflow-y:auto;
+    padding:40px;
+}
+
+
+.scrapbook{
+    max-width:1100px;
+    margin:auto;
+    position:relative;
+    font-family:'Itim', cursive;
+}
+
+.title{
+    text-align:center;
+    font-size:30px;
+    color:#e91e63;
+    margin-bottom:40px;
+}
+.title1{
+    text-align:center;
+    font-size:20px;
+    color:#e91e63;
+    margin-bottom:10px;
+}
+
+/* ---------- PAGE 2 ---------- */
+
+.page2{
+    background:linear-gradient(to bottom,#fff0f6,#ffe6f0);
+}
+
+.photo-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:60px;
+    margin-bottom:40px;
+}
+
+.polaroid{
+    background:white;
+    padding:15px;
+    width:280px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    border-radius:12px;
+    position:relative;
+    transition:0.3s;
+}
+
+.polaroid img{
+    width:100%;
+    border-radius:8px;
+}
+
+.polaroid:hover{
+    transform:scale(1.08);
+}
+
+.rotate-left{ transform:rotate(-8deg); }
+.rotate-right{ transform:rotate(8deg); }
+
+.tape{
+    width:80px;
+    height:25px;
+    background:rgba(255,255,255,0.7);
+    position:absolute;
+    top:-15px;
+    left:50%;
+    transform:translateX(-50%) rotate(-5deg);
+    border-radius:5px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+
+.note{
+    text-align:center;
+    font-size:22px;
+    color:#d81b60;
+    margin-top:40px;
+}
+
+/* ---------- PAGE 3 ---------- */
+
+.page3{
+    background:linear-gradient(to bottom,#fff0f6,#ffe0ec);
+}
+
+.collage{
+    position:relative;
+    width:100%;
+    height:75vh;
+}
+
+
+.photo{
+    position:absolute;
+    width:220px;
+    background:white;
+    padding:12px;
+    border-radius:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    transition:0.4s ease;
+}
+
+.photo img{
+    width:100%;
+    border-radius:8px;
+    display:block;
+}
+
+.photo:hover{
+    transform:scale(1.1) rotate(0deg) !important;
+    z-index:20;
+}
+
+.photo .tape{
+    width:70px;
+    height:20px;
+    background:rgba(255,255,255,0.7);
+    position:absolute;
+    top:-12px;
+    left:50%;
+    transform:translateX(-50%) rotate(-8deg);
+    border-radius:5px;
+}
+
+/* ตำแหน่งรูป */
+.p1{ top:40px; left:5%; transform:rotate(-12deg); }
+.p2{ top:120px; left:30%; transform:rotate(8deg); }
+.p3{ top:60px; right:8%; transform:rotate(-6deg); }
+.p4{ bottom:100px; left:18%; transform:rotate(12deg); }
+.p5{ bottom:50px; right:25%; transform:rotate(-8deg); }
+
+.p6{ top:300px; left:65%; transform:rotate(8deg); }
+
+.p7{ top:20px; left:40%; transform:rotate(-15deg); }
+
+
+
+.page3 .bottom-text{
+    text-align:center;
+    font-size:24px;
+    color:#d81b60;
+    margin-top:40px;
+}
+
+.page4{
+    background:linear-gradient(to bottom,#ffe6f0,#ffc1dc);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0;
+    overflow:hidden;
+}
+
+.video-page{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+video{
+    max-width:90vw;
+    max-height:80vh;
+    border-radius:20px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.3);
+}
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="book">
+
+    <!-- PAGE 1 -->
+    <div class="page" id="page1" onclick="nextPage()">
+        <div class="front">
+            <img src="cover.jpg">
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page page2" id="page2" onclick="nextPage()">
+        <div class="scrapbook">
+            <h1 class="title">Happy Valentine's Day 💖</h1>
+
+            <div class="photo-row">
+                <div class="polaroid rotate-left">
+                    <div class="tape"></div>
+                    <img src="img1.jpg">
+                </div>
+
+                <div class="polaroid">
+                    <div class="tape"></div>
+                    <img src="img2.jpg">
+                </div>
+
+                <div class="polaroid rotate-right">
+                    <div class="tape"></div>
+                    <img src="img3.jpg">
+                </div>
+            </div>
+                        <div class="photo-row">
+                <div class="polaroid rotate-left">
+                    <div class="tape"></div>
+                    <img src="img4.jpg">
+                </div>
+
+                <div class="polaroid">
+                    <div class="tape"></div>
+                    <img src="img7.jpg">
+                </div>
+
+                <div class="polaroid rotate-right">
+                    <div class="tape"></div>
+                    <img src="img15.jpg">
+                </div>
+            </div>
+
+            <div class="note">
+                อยู่ด้วยกันแบบนี้ไปนาน ๆ นะ 💕<br>
+                ขอบคุณที่อยู่ข้างกันนะ💕<br>
+                รักที่สุดเบยนะ
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page page3" id="page3">
+        <div class="scrapbook">
+            <h1 class="title">Happy Valentine's Day 💖</h1>
+            <h5 class="title1">ทุกความทรงจำคือของขวัญที่ดีที่สุด 💖</h1>
+            <div class="collage">
+                <div class="photo p1"><div class="tape"></div><img src="img13.jpg"></div>
+                <div class="photo p3"><div class="tape"></div><img src="img6.jpg"></div>
+                <div class="photo p4"><div class="tape"></div><img src="img5.jpg"></div>
+                <div class="photo p5"><div class="tape"></div><img src="img8.jpg"></div>
+                <div class="photo p6"><div class="tape"></div><img src="img9.jpg"></div>
+                <div class="photo p7"><div class="tape"></div><img src="img11.jpg"></div>
+            </div>
+
+            <div class="bottom-text">
+             ถึงไม่ได้อยู่ด้วยกันแต่มีดอกไม้มาให้นะ
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4 -->
+<div class="page page4" id="page4">
+    <div class="video-page">
+        <h1 class="title">ดอกไม้คับ💖</h1>
+
+        <video id="valentineVideo" controls>
+            <source src="video1.mp4" type="video/mp4">
+            เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+        </video>
+    </div>
+</div>
+
+
+</div>
+
+<audio id="music" src="music.mp3" loop></audio>
+
+<script>
+let currentPage = 0;
+const pages = document.querySelectorAll(".page");
+const music = document.getElementById("music");
+
+// คลิกได้เฉพาะ page1 และ page2
+pages[0].addEventListener("click", () => openPage(0));
+pages[1].addEventListener("click", () => openPage(1));
+pages[2].addEventListener("click", () => openPage(2));
+
+
+function openPage(index){
+    if(currentPage === index){
+        pages[index].classList.add("open");
+
+        setTimeout(()=>{
+            pages[index].style.display = "none";
+        },1500);
+
+        if(index === 0){
+            music.play();
+        }
+
+        currentPage++;
+    }
+}
+</script>
+
+
+</body>
+</html>
